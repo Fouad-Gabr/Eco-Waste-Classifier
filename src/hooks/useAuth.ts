@@ -15,23 +15,25 @@ interface RegisterData extends LoginData {
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const { setAuth, logout: storeLogout } = useAuthStore();
+  const { user, setAuth, logout: storeLogout } = useAuthStore();
 
   const login = async (data: LoginData) => {
     try {
       const response = await api.post('/login/', data);
       const token = response.data.access_token;
-      localStorage.setItem('token', token); // ✅
-      const user = {
-        id: 0,
-        firstName: '',
-        lastName: '',
+      localStorage.setItem('token', token);
+
+      // المفروض تجيب بيانات المستخدم الحقيقية من الـ response أو endpoint منفصل
+      const userData = {
+        id: response.data.user?.id || 0,
+        firstName: response.data.user?.firstName || '',
+        lastName: response.data.user?.lastName || '',
         email: data.email,
       };
 
-      setAuth(token, user);
+      setAuth(token, userData);
       toast.success('Login successful!');
-      navigate('/dashboard');
+      navigate('/');
     } catch (error: any) {
       if (error.response?.status === 400) {
         toast.error('Invalid email or password');
@@ -48,15 +50,16 @@ export const useAuth = () => {
     try {
       const response = await api.post('/register/', data);
       const token = response.data.access_token;
-      localStorage.setItem('token', token); // ✅
-      const user = {
-        id: 0,
+      localStorage.setItem('token', token);
+
+      const userData = {
+        id: response.data.user?.id || 0,
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
       };
 
-      setAuth(token, user);
+      setAuth(token, userData);
       toast.success('Registration successful!');
       navigate('/dashboard');
     } catch (error: any) {
@@ -82,5 +85,5 @@ export const useAuth = () => {
     navigate('/');
   };
 
-  return { login, register, logout };
+  return { user, login, register, logout };
 };

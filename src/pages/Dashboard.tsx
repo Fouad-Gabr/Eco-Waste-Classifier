@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,10 +13,6 @@ import {
   Filler
 } from 'chart.js';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
-import { useState } from 'react';
-import { ImageClassificationDrawer } from '../components/ImageClassificationDrawer';
-import { api } from '../lib/axios';
-import toast from 'react-hot-toast';
 
 ChartJS.register(
   CategoryScale,
@@ -31,54 +28,10 @@ ChartJS.register(
 );
 
 const Dashboard = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [classificationResult, setClassificationResult] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const categories = ['Plastic', 'Glass', 'Metal', 'Paper', 'Cardboard', 'Trash'];
   const barData = [16, 29, 18, 7, 6, 19];
   const areaData = [25, 21, 14, 15, 18, 4];
-
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    // Check file type
-    if (!file.type.startsWith('image/')) {
-      toast.error('Please upload an image file');
-      return;
-    }
-
-    // Check file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error('File size should be less than 5MB');
-      return;
-    }
-
-    setIsLoading(true);
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      setSelectedImage(URL.createObjectURL(file));
-      const token = localStorage.getItem('token'); 
-      const response = await api.post('/classify/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      setClassificationResult(response.data);
-      setIsDrawerOpen(true);
-    } catch (error: any) {
-      console.error('Classification error:', error);
-      toast.error(error.response?.data?.detail || 'Failed to classify image');
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const barChartData = {
     labels: categories,
@@ -145,6 +98,7 @@ const Dashboard = () => {
       <div className="container-fluid py-4">
         <div className="row h-100">
           <div className="col-md-8">
+            {/* Charts Section */}
             <div className="row mb-4">
               <div className="col-12">
                 <div className="card shadow-custom">
@@ -170,6 +124,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+
           <div className="col-md-4">
             <div className="card shadow-custom h-100">
               <div className="card-body p-4 d-flex flex-column">
@@ -189,41 +144,12 @@ const Dashboard = () => {
                 <div className="chart-container flex-grow-1 mb-4">
                   <Doughnut data={doughnutData} options={chartOptions} />
                 </div>
-                <div className="d-grid gap-2 mt-auto">
-                  <input
-                    type="file"
-                    id="imageUpload"
-                    accept="image/*"
-                    className="d-none"
-                    onChange={handleImageUpload}
-                  />
-                  <label
-                    htmlFor="imageUpload"
-                    className={`btn btn-success ${isLoading ? 'disabled' : ''}`}
-                  >
-                    {isLoading ? (
-                      <>
-                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                        Processing...
-                      </>
-                    ) : (
-                      'Scan Items'
-                    )}
-                  </label>
-                  <button className="btn btn-dark">Reset</button>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <ImageClassificationDrawer
-        isOpen={isDrawerOpen}
-        onClose={() => setIsDrawerOpen(false)}
-        selectedImage={selectedImage}
-        classificationResult={classificationResult}
-      />
     </>
   );
 };

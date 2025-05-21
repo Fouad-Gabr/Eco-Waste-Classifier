@@ -16,7 +16,7 @@ const Navbar = () => {
   const handleLogout = () => {
     storeLogout();
     localStorage.removeItem('auth-storage');
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -35,7 +35,7 @@ const Navbar = () => {
         
         {isAuthPage ? (
           <div className="d-none d-lg-block">
-            {location.pathname === "/" ? (
+            {location.pathname === "/login" ? (
               <p className="text-center mb-0">
                 Don't have an account?{" "}
                 <Link to="/signup" className="success-color text-decoration-none">
@@ -45,7 +45,7 @@ const Navbar = () => {
             ) : (
               <p className="text-center mb-0">
                 Already a member?{" "}
-                <Link to="/" className="success-color text-decoration-none">
+                <Link to="/login" className="success-color text-decoration-none">
                   Log In
                 </Link>
               </p>
@@ -76,7 +76,7 @@ const Navbar = () => {
         {/* Mobile auth links */}
         {isAuthPage && (
           <div className="d-lg-none w-100 text-center mt-2">
-            {location.pathname === "/" ? (
+            {location.pathname === "/login" ? (
               <p className="mb-0">
                 Don't have an account?{" "}
                 <Link to="/signup" className="success-color text-decoration-none">
@@ -86,7 +86,7 @@ const Navbar = () => {
             ) : (
               <p className="mb-0">
                 Already a member?{" "}
-                <Link to="/" className="success-color text-decoration-none">
+                <Link to="/login" className="success-color text-decoration-none">
                   Log In
                 </Link>
               </p>

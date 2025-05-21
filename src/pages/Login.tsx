@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import AuthLayout from "../components/AuthLayout";
 import { useAuth } from "../hooks/useAuth";
+import { useUser } from "../UserContext";
 import { toast } from "react-hot-toast";
 
 interface LoginFormData {
@@ -20,16 +21,17 @@ const Login = () => {
   });
   const [errors, setErrors] = useState<Partial<LoginFormData>>({});
   const { login } = useAuth();
+  const { setUser } = useUser(); // 🟢 نستخدم context لتخزين بيانات المستخدم
 
   const validateForm = () => {
     const newErrors: Partial<LoginFormData> = {};
-    
+
     if (!formData.email) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Please enter a valid email address";
     }
-    
+
     if (!formData.password) {
       newErrors.password = "Password is required";
     }
@@ -40,10 +42,8 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      return;
-    }
+
+    if (!validateForm()) return;
 
     setIsLoading(true);
     try {
@@ -51,14 +51,23 @@ const Login = () => {
         email: formData.email,
         password: formData.password,
       });
-      
+
+      // 🟢 خزّن بيانات المستخدم في السياق (ممكن تجيب الاسم من السيرفر كمان)
+      setUser({
+        email: formData.email,
+        name: "User", // تقدر تستبدلها بالاسم الحقيقي من API
+      });
+
       if (formData.rememberMe) {
-        localStorage.setItem('rememberedEmail', formData.email);
+        localStorage.setItem("rememberedEmail", formData.email);
       } else {
-        localStorage.removeItem('rememberedEmail');
+        localStorage.removeItem("rememberedEmail");
       }
+
+      toast.success("Login successful!");
     } catch (error) {
-      console.error('Login error:', error);
+      console.error("Login error:", error);
+      toast.error("Login failed. Please check your credentials.");
     } finally {
       setIsLoading(false);
     }
@@ -102,6 +111,7 @@ const Login = () => {
             )}
           </div>
         </div>
+
         <div className="mb-3">
           <label className="form-label" htmlFor="password">Password</label>
           <div className="input-group">
@@ -134,6 +144,7 @@ const Login = () => {
             )}
           </div>
         </div>
+
         <div className="mb-5 d-flex justify-content-between align-items-center px-2">
           <div className="form-check d-flex">
             <input
@@ -146,26 +157,22 @@ const Login = () => {
               }
               disabled={isLoading}
             />
-            <label
-              className="form-check-label remember-me"
-              htmlFor="rememberMe"
-            >
+            <label className="form-check-label remember-me" htmlFor="rememberMe">
               Remember me
             </label>
           </div>
-          <a href="#" className="forgot-pass">
-            Forgot password?
-          </a>
+          <a href="#" className="forgot-pass">Forgot password?</a>
         </div>
+
         <button 
           type="submit" 
           className="btn btn-dark w-100 mb-3 rounded-4"
           disabled={isLoading}
         >
-          {isLoading ? (
+          {isLoading && (
             <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-          ) : null}
-          {isLoading ? 'Logging in...' : 'Login'}
+          )}
+          {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>
     </AuthLayout>

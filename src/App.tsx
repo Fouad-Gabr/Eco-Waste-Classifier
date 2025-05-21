@@ -4,9 +4,14 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
-
+import Landing from "./components/landing";
+import{ ModelSection} from "./components/Buymodelsection";
+import CheckoutSuccess from './pages/Checkoutsuccess';
+import CheckoutCancel  from './pages/CechoutCancile';
+import { UserProvider } from "./UserContext";
 function App() {
   return (
+    <UserProvider>
     <Router>
       <div className="app">
         <Toaster
@@ -26,20 +31,25 @@ function App() {
         />
 
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
           <Route
-            path="/dashboard"
+            path="/"
             element={
               <>
                 <Navbar />
+                <Landing/>
                 <Dashboard />
+                <ModelSection/>
               </>
             }
           />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+           <Route path="/CheckoutSuccess" element={<CheckoutSuccess />} />
+            <Route path="/checkout/cancel"  element={<CheckoutCancel />} />
         </Routes>
       </div>
     </Router>
+    </UserProvider>
   );
 }
 
