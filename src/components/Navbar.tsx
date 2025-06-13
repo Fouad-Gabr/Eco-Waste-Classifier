@@ -6,7 +6,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, logout: storeLogout } = useAuthStore();
-  const isAuthPage = location.pathname === "/" || location.pathname === "/signup";
+  const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
 
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -52,6 +52,14 @@ const Navbar = () => {
             )}
           </div>
         ) : null}
+        {location.pathname === "/" ?(
+          <p className="text-center mb-0">
+                Already a member?{" "}
+                <Link to="/login" className="success-color text-decoration-none">
+                  Log In
+                </Link>
+              </p>
+        ):null}
 
         {!isAuthPage && user && (
           <div className="navbar-user">

@@ -110,11 +110,11 @@ const Signup = () => {
         <div className="mb-4">
           <label className="form-label" htmlFor="firstName">First Name</label>
           <div className="input-group">
-            <img
+            {/* <img
               src="../images/User.svg"
               alt="user icon"
               className="email-icon bg-light d-flex justify-content-center align-items-center px-3 fs-4 pe-2 rounded-start-3"
-            />
+            /> */}
             <input
               type="text"
               className={`form-control bg-light ps-1 ${errors.firstName ? 'is-invalid' : ''}`}
@@ -134,11 +134,11 @@ const Signup = () => {
         <div className="mb-4">
           <label className="form-label" htmlFor="lastName">Last Name</label>
           <div className="input-group">
-            <img
+            {/* <img
               src="../images/User.svg"
               alt="user icon"
               className="email-icon bg-light d-flex justify-content-center align-items-center px-3 fs-4 pe-2 rounded-start-3"
-            />
+            /> */}
             <input
               type="text"
               className={`form-control bg-light ps-1 ${errors.lastName ? 'is-invalid' : ''}`}
