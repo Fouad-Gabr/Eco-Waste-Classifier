@@ -103,6 +103,9 @@ const LandingPage = () => {
 
         <div className="d-flex flex-row gap-3 z-10" style={{zIndex: 1}}>
           <label htmlFor="fileInput" className="btn btn-success btn-lg">
+            {isLoading && (
+            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          )}
             {isLoading ? 'Processing...' : 'Scan Items'}
           </label>
           <input
@@ -128,6 +131,9 @@ const LandingPage = () => {
             />
             <div className="mt-3 d-flex gap-2 justify-content-center"style={{zIndex: 1}}>
               <button className="btn btn-warning" onClick={handleWebcamCapture}>
+                {isLoading && (
+            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          )}
                 {isLoading ? 'Processing...' : 'Capture & Classify'}
               </button>
               <button className="btn btn-secondary" onClick={() => setIsWebcamOpen(false)}style={{zIndex: 1}}>
