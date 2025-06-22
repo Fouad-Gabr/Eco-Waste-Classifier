@@ -111,9 +111,9 @@ const Signup = () => {
           <label className="form-label" htmlFor="firstName">First Name</label>
           <div className="input-group">
             <img
-              src="../images/User.svg"
+              src="../images/username.svg"
               alt="user icon"
-              className="email-icon bg-light d-flex justify-content-center align-items-center px-3 fs-4 pe-2 rounded-start-3"
+              className="email-icon username-icon bg-light d-flex justify-content-center align-items-center px-3 fs-4 pe-2 rounded-start-3"
             />
             <input
               type="text"
@@ -135,9 +135,9 @@ const Signup = () => {
           <label className="form-label" htmlFor="lastName">Last Name</label>
           <div className="input-group">
             <img
-              src="../images/User.svg"
+              src="../images/username.svg"
               alt="user icon"
-              className="email-icon bg-light d-flex justify-content-center align-items-center px-3 fs-4 pe-2 rounded-start-3"
+              className="email-icon username-icon bg-light d-flex justify-content-center align-items-center px-3 fs-4 pe-2 rounded-start-3"
             />
             <input
               type="text"

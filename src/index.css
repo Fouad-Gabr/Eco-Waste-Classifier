@@ -281,17 +281,6 @@
   border: none !important;
 }
 
-.input-group:hover {
-  border: none !important;
-  background-color: transparent;
-  border-radius: 0.5rem !important;
-  box-shadow: -6px 8px 8px 0px #848b87af !important;
-  -webkit-border-radius: 0.5rem !important;
-  -moz-border-radius: 0.5rem !important;
-  -ms-border-radius: 0.5rem !important;
-  -o-border-radius: 0.5rem !important;
-}
-
 .input-group,
 .input-group img,
 .input-group .form-control,
@@ -317,6 +306,11 @@
 .email-icon {
   background-color: #f5f5f5 !important;
 }
+
+.username-icon{
+  max-width: 48px;
+}
+
 
 /* Form validation styles */
 .is-invalid {
