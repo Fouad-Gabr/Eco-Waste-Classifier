@@ -88,7 +88,7 @@ const LandingPage = () => {
         className="landing-page d-flex relative flex-column justify-content-center align-items-center text-white"
         style={{
           minHeight: '100vh',
-          backgroundImage: `url('../../public/images/bg1.png')`,
+          backgroundImage: `url('../../images/bg1.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           textAlign: 'center',

@@ -24,7 +24,7 @@ export const ModelSection: React.FC = () => {
     marginBottom: '1rem',   // mb-4 يعني 16px
   }}>
          <img
-        src="../../public/images/bg3.png"   
+        src="../../images/bg3.png"   
         alt="AI Model"
         className=""
         style={{
