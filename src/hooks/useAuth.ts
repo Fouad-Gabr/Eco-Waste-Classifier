@@ -61,7 +61,7 @@ export const useAuth = () => {
 
       setAuth(token, userData);
       toast.success('Registration successful!');
-      navigate('/dashboard');
+      navigate('/');
     } catch (error: any) {
       if (error.response?.status === 400) {
         const errorMessage = error.response.data?.detail || 'Registration failed';
