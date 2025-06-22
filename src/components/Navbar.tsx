@@ -52,7 +52,7 @@ const Navbar = () => {
             )}
           </div>
         ) : null}
-        {location.pathname === "/" ?(
+        {location.pathname === "/" && !user ?(
           <p className="text-center mb-0">
                 Already a member?{" "}
                 <Link to="/login" className="success-color text-decoration-none">
