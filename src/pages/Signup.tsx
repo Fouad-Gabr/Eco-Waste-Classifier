@@ -70,7 +70,7 @@ const Signup = () => {
   return (
     <AuthLayout
       title={
-        <div className="rubik">
+        <div className="rubik signup-title-mobile">
           Cr<span className="eco-span">e</span>ate Ac
           <span className="eco-span">c</span>ount N
           <span className="eco-span">o</span>w

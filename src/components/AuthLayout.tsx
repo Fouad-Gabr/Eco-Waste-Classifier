@@ -22,7 +22,7 @@ const AuthLayout = ({ children, title, subtitle }: AuthLayoutProps) => {
     <div className="min-vh-100 d-flex flex-column">
       <Navbar />
       <div className="flex-grow-1 px-4 py-2">
-        <div className="container-fluid h-100 p-5">
+        <div className="container-fluid h-100 p-4 p-md-5">
           <div className="row g-0 h-100 d-flex justify-content-between py-3">
             <h1 className="eco-title mb-3">{title}</h1>
             {subtitle && <div className="text-muted">{subtitle}</div>}
@@ -31,7 +31,7 @@ const AuthLayout = ({ children, title, subtitle }: AuthLayoutProps) => {
                 <div className="card-body p-0">{children}</div>
               </div>
             </div>
-            <div className="col-7 svg-container d-flex justify-content-end">
+            <div className="col-7 svg-container d-none d-lg-flex justify-content-end">
               <img
                 src={getAuthImage()}
                 alt={

@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from 'react';
 
 interface ClassificationResult {
   class_name: string;
@@ -11,6 +12,7 @@ interface DrawerProps {
   onClose: () => void;
   selectedImage: string | null;
   classificationResult: ClassificationResult | null;
+  onDrawerClose?: () => void; // New prop for handling drawer close actions
 }
 
 export const ImageClassificationDrawer = ({
@@ -18,7 +20,27 @@ export const ImageClassificationDrawer = ({
   onClose,
   selectedImage,
   classificationResult,
+  onDrawerClose,
 }: DrawerProps) => {
+  const handleClose = () => {
+    onClose();
+    // Trigger the callback when drawer closes
+    if (onDrawerClose) {
+      console.log('Triggering onDrawerClose callback'); // Debug log
+      onDrawerClose();
+    }
+  };
+
+useEffect(() => {
+  if (isOpen) {
+    document.body.classList.add("no-scroll");
+  } else {
+    document.body.classList.remove("no-scroll");
+  }
+
+  return () => document.body.classList.remove("no-scroll");
+}, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -41,15 +63,15 @@ export const ImageClassificationDrawer = ({
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
                 <button
-                  onClick={onClose}
+                  onClick={handleClose}
                   className="hover:bg-gray-100 close-btn transition-colors"
                 >
                   <X size={24} />
                 </button>
-                <h3 className="text-xl font-semibold text-center mb-4 fs-2 fw-bold">Classification Result</h3>
+                <h3 className="text-xl font-semibold text-center mb-4 fs-2 fw-bold result-header">Classification Result</h3>
               </div>
 
-              <div className="d-flex justify-content-center align-items-center">
+              <div className="d-flex justify-content-center align-items-center class-result-mobile">
                 {selectedImage && (
                   <div className="mb-6 d-flex justify-content-center align-items-center">
                     <img
@@ -62,13 +84,13 @@ export const ImageClassificationDrawer = ({
 
                 {classificationResult && (
                   <div className="space-y-4">
-                    <div className="p-4 bg-gray-50 rounded-lg d-flex flex-column justify-content-center align-items-center">
+                    <div className="p-4 bg-gray-50 rounded-lg class-name d-flex flex-column justify-content-center align-items-center">
                       <h4 className="fs-2 mb-2 fw-medium">Classification</h4>
                       <p className="text-lg fs-2 text-danger font-semibold capitalize d-flex">
                         {classificationResult.class_name}
                       </p>
                     </div>
-                    <div className="p-4 bg-gray-50 rounded-lg d-flex flex-column justify-content-center align-items-center">
+                    <div className="p-4 bg-gray-50 rounded-lg class-name d-flex flex-column justify-content-center align-items-center">
                       <h4 className="fs-2 mb-2 fw-medium">Confidence</h4>
                       <p className="text-lg fs-2 text-danger font-semibold d-flex">
                         {(classificationResult.confidence).toFixed(2)}%

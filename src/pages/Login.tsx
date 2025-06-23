@@ -76,7 +76,7 @@ const Login = () => {
   return (
     <AuthLayout
       title={
-        <div className="rubik">
+        <div className="rubik login-title-mobile">
           Welcome to <span className="eco-span">Eco</span>WasteClassifier
         </div>
       }

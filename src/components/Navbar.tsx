@@ -10,7 +10,7 @@ const Navbar = () => {
 
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    window.location.reload();
+    navigate('/')
   };
 
   const handleLogout = () => {
@@ -21,9 +21,9 @@ const Navbar = () => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
-      <div className="container-fluid">
+      <div className="container-fluid navbar-container-mobile">
         <a
-          className="navbar-brand d-flex align-items-baseline"
+          className="navbar-brand d-flex align-items-baseline logo-mobile"
           href="#"
           onClick={handleLogoClick}
         >

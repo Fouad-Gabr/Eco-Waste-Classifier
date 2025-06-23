@@ -26,7 +26,7 @@ export const ModelSection: React.FC = () => {
          <img
         src="../../images/bg3.png"   
         alt="AI Model"
-        className=""
+        className="buy-model-img"
         style={{
           width: '50%', // rounded-xl تقريبا 12px
         }}
@@ -35,9 +35,9 @@ export const ModelSection: React.FC = () => {
      
 
       {/* الزرار */}
-      <div className="md:ml-6 text-center md:text-left">
-        <h2 className="text-2xl font-bold mb-4">Unlock Full Model Access</h2>
-        <p className="text-gray-600 mb-4">
+      <div className="md:ml-6 text-center md:text-left model-text-container">
+        <h2 className="text-2xl font-bold mb-4 model-title-mobile">Unlock Full Model Access</h2>
+        <p className="text-gray-600 mb-4 model-subtitle-mobile">
           Get full access to our advanced waste classifier model for just $10.
         </p>
         <BuyButton />

@@ -4,9 +4,16 @@ import { api } from '../lib/axios';
 import toast from 'react-hot-toast';
 import { ImageClassificationDrawer } from '../components/ImageClassificationDrawer';
 import { BuyButton } from './BuyButton';
-const LandingPage = () => {
+import { useAuthStore } from '../store/authStore';
+
+interface LandingPageProps {
+  onClassificationComplete?: () => void;
+}
+
+const LandingPage = ({ onClassificationComplete }: LandingPageProps) => {
   const [isWebcamOpen, setIsWebcamOpen] = useState(false);
   const webcamRef = useRef<Webcam>(null);
+  const { user } = useAuthStore();
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [classificationResult, setClassificationResult] = useState<any>(null);
@@ -82,6 +89,19 @@ const LandingPage = () => {
     }
   };
 
+  const handleDrawerClose = () => {
+    console.log('Landing: handleDrawerClose called, user:', user); // Debug log
+    setIsDrawerOpen(false);
+    
+    // Only trigger chart update if user is logged in and callback exists
+    if (user && onClassificationComplete) {
+      console.log('Landing: Triggering onClassificationComplete'); // Debug log
+      onClassificationComplete();
+    } else {
+      console.log('Landing: Not triggering callback - user:', !!user, 'callback:', !!onClassificationComplete);
+    }
+  };
+
   return (
     <>
       <div
@@ -149,7 +169,7 @@ const LandingPage = () => {
         onClose={() => setIsDrawerOpen(false)}
         selectedImage={selectedImage}
         classificationResult={classificationResult}
-        
+        onDrawerClose={handleDrawerClose}
       />
 
       {/* <BuyButton/> */}

@@ -28,7 +28,7 @@ export const BuyButton: React.FC = () => {
   };
 
   return (
-    <button className="btn btn-lg btn-primary" onClick={handleBuy}>
+    <button className="btn btn-lg btn-primary buy-btn-mobile" onClick={handleBuy}>
       Buy Model ($10)
     </button>
   );
